@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "AzureDataFactory-Vamsi"
+		},
+		"LS_AzureDB_password": {
+			"value": ""
+		},
+		"LS_Blob_connectionString": {
+			"value": ""
+		},
+		"LS_TestDB_password": {
+			"value": ""
+		},
+		"LS_AzureDB_properties_typeProperties_server": {
+			"value": "vamsisqlserver1.database.windows.net"
+		},
+		"LS_AzureDB_properties_typeProperties_database": {
+			"value": "VamsiDB"
+		},
+		"LS_AzureDB_properties_typeProperties_userName": {
+			"value": "vadlamudi"
+		},
+		"LS_TestDB_properties_typeProperties_server": {
+			"value": "vamsisqlserver1.database.windows.net"
+		},
+		"LS_TestDB_properties_typeProperties_database": {
+			"value": "@{linkedService().DB_Name}"
+		},
+		"LS_TestDB_properties_typeProperties_userName": {
+			"value": "vadlamudi"
+		},
+		"RestService1_properties_typeProperties_url": {
+			"value": "https://dummy.restapiexample.com/api/v1/employees"
+		},
+		"Event_Trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/285e89a1-bc34-4c75-b167-9b977b8a723c/resourceGroups/RG-Test/providers/Microsoft.Storage/storageAccounts/adlsvamsiazure"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}
