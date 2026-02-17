@@ -1,0 +1,31 @@
+{
+	"name": "AnotherADF_PipelineRun",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"method": "POST",
+					"url": "https://management.azure.com/subscriptions/285e89a1-bc34-4c75-b167-9b977b8a723c/resourceGroups/RG-Test/providers/Microsoft.DataFactory/factories/AzureDataFactory-Vamsi2/pipelines/RestApi/createRun?api-version=2018-06-01",
+					"authentication": {
+						"type": "MSI",
+						"resource": "https://management.azure.com/"
+					}
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-02-13T14:59:10Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

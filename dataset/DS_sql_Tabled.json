@@ -1,0 +1,31 @@
+{
+	"name": "DS_sql_Tabled",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_AzureDB",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "name",
+				"type": "varchar"
+			},
+			{
+				"name": "city",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "tabled"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

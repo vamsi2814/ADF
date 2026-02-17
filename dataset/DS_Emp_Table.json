@@ -1,0 +1,53 @@
+{
+	"name": "DS_Emp_Table",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_TestDB",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Table_Name": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "EMPLOYEE_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "FIRST_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LAST_NAME",
+				"type": "nvarchar"
+			},
+			{
+				"name": "SALARY",
+				"type": "nvarchar"
+			},
+			{
+				"name": "DEPARTMENT_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "LOCATION_ID",
+				"type": "nvarchar"
+			},
+			{
+				"name": "HIRE_DATE",
+				"type": "nvarchar"
+			}
+		],
+		"typeProperties": {
+			"table": {
+				"value": "@dataset().Table_Name",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,34 @@
+{
+	"name": "DS_TestDB",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_TestDB",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"DB_Name": {
+					"value": "@dataset().DB_Name",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"Tbl_Name": {
+				"type": "String"
+			},
+			"DB_Name": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "",
+			"table": {
+				"value": "@dataset().Tbl_Name",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

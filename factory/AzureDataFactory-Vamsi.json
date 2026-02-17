@@ -1,0 +1,9 @@
+{
+	"name": "AzureDataFactory-Vamsi",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ae14d41c-d061-4299-a4e8-f67b5038c92a",
+		"tenantId": "c0e7f6db-5d09-45a5-83e1-0816fe57da9a"
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"name": "Event_Trigger",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "19_Event_Trigger",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/mycontainer/blobs/root/Source/Event/Input",
+			"blobPathEndsWith": ".csv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/285e89a1-bc34-4c75-b167-9b977b8a723c/resourceGroups/RG-Test/providers/Microsoft.Storage/storageAccounts/adlsvamsiazure",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

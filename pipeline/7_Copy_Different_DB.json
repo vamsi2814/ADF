@@ -1,0 +1,92 @@
+{
+	"name": "7_Copy_Different_DB",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"tableOption": "autoCreate",
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "DS_TestDB",
+						"type": "DatasetReference",
+						"parameters": {
+							"Tbl_Name": {
+								"value": "@pipeline().parameters.Input_Table",
+								"type": "Expression"
+							},
+							"DB_Name": {
+								"value": "@pipeline().parameters.Input_DB",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "DS_TestDB",
+						"type": "DatasetReference",
+						"parameters": {
+							"Tbl_Name": {
+								"value": "@pipeline().parameters.Output_Table",
+								"type": "Expression"
+							},
+							"DB_Name": {
+								"value": "@pipeline().parameters.Output_DB",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"Input_Table": {
+				"type": "String"
+			},
+			"Input_DB": {
+				"type": "String"
+			},
+			"Output_DB": {
+				"type": "String"
+			},
+			"Output_Table": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2026-02-06T17:22:15Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
