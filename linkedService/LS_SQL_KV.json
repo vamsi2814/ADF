@@ -16,8 +16,7 @@
 					"referenceName": "LS_keyVault",
 					"type": "LinkedServiceReference"
 				},
-				"secretName": "sql-password",
-				"secretVersion": "a039226078734cacabc737a6277cfe68"
+				"secretName": "sql-password"
 			}
 		}
 	}
