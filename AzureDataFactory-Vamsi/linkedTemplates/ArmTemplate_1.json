@@ -6,12 +6,79 @@
 			"type": "string",
 			"metadata": "Data Factory name",
 			"defaultValue": "AzureDataFactory-Vamsi"
+		},
+		"LS_SQL_KV_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "vamsisqlserver1.database.windows.net"
+		},
+		"LS_SQL_KV_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "VamsiDB"
+		},
+		"LS_SQL_KV_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "vadlamudi"
 		}
 	},
 	"variables": {
 		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
 	},
 	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/DS_Emp_Table')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "LS_TestDB",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Table_Name": {
+						"type": "String"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "EMPLOYEE_ID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "FIRST_NAME",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LAST_NAME",
+						"type": "nvarchar"
+					},
+					{
+						"name": "SALARY",
+						"type": "nvarchar"
+					},
+					{
+						"name": "DEPARTMENT_ID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "LOCATION_ID",
+						"type": "nvarchar"
+					},
+					{
+						"name": "HIRE_DATE",
+						"type": "nvarchar"
+					}
+				],
+				"typeProperties": {
+					"table": {
+						"value": "@dataset().Table_Name",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": []
+		},
 		{
 			"name": "[concat(parameters('factoryName'), '/DS_Emp_sal_csv')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
@@ -402,6 +469,32 @@
 				"type": "RestResource",
 				"typeProperties": {},
 				"schema": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_SQL_KV')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('LS_SQL_KV_properties_typeProperties_server')]",
+					"database": "[parameters('LS_SQL_KV_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('LS_SQL_KV_properties_typeProperties_userName')]",
+					"password": {
+						"type": "AzureKeyVaultSecret",
+						"store": {
+							"referenceName": "LS_keyVault",
+							"type": "LinkedServiceReference"
+						},
+						"secretName": "sql-password"
+					}
+				}
 			},
 			"dependsOn": []
 		},
@@ -1142,208 +1235,6 @@
 				"lastPublishTime": "2026-02-11T12:59:33Z"
 			},
 			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/15_set_variable')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Set variable1",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Get Metadata1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "var",
-							"value": {
-								"value": "@activity('Get Metadata1').output.exists",
-								"type": "Expression"
-							}
-						}
-					},
-					{
-						"name": "Get Metadata1",
-						"type": "GetMetadata",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"dataset": {
-								"referenceName": "DS_Emp_sal_csv",
-								"type": "DatasetReference",
-								"parameters": {}
-							},
-							"fieldList": [
-								"exists"
-							],
-							"storeSettings": {
-								"type": "AzureBlobStorageReadSettings",
-								"recursive": true,
-								"enablePartitionDiscovery": false
-							},
-							"formatSettings": {
-								"type": "DelimitedTextReadSettings"
-							}
-						}
-					},
-					{
-						"name": "Set variable2",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Set variable1",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "num",
-							"value": "1"
-						}
-					},
-					{
-						"name": "Set variable3",
-						"type": "SetVariable",
-						"dependsOn": [
-							{
-								"activity": "Set variable2",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"variableName": "num",
-							"value": "100"
-						}
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"variables": {
-					"var": {
-						"type": "Boolean"
-					},
-					"num": {
-						"type": "String"
-					}
-				},
-				"annotations": [],
-				"lastPublishTime": "2026-02-11T14:01:23Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_Emp_sal_csv')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/19_Event_Trigger')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "AzureBlobStorageReadSettings",
-									"recursive": true,
-									"wildcardFolderPath": "root/Source/Event/Input",
-									"wildcardFileName": "*",
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobStorageWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DS_Event_Input",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_Event_Output",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": [],
-				"lastPublishTime": "2026-02-12T14:25:54Z"
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_Event_Input')]",
-				"[concat(variables('factoryId'), '/datasets/DS_Event_Output')]"
-			]
 		}
 	]
 }

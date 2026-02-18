@@ -23,6 +23,15 @@
 		"LS_AzureDB_properties_typeProperties_userName": {
 			"value": "vadlamudi"
 		},
+		"LS_SQL_KV_properties_typeProperties_server": {
+			"value": "vamsisqlserver1.database.windows.net"
+		},
+		"LS_SQL_KV_properties_typeProperties_database": {
+			"value": "VamsiDB"
+		},
+		"LS_SQL_KV_properties_typeProperties_userName": {
+			"value": "vadlamudi"
+		},
 		"LS_TestDB_properties_typeProperties_server": {
 			"value": "vamsisqlserver1.database.windows.net"
 		},
@@ -31,6 +40,9 @@
 		},
 		"LS_TestDB_properties_typeProperties_userName": {
 			"value": "vadlamudi"
+		},
+		"LS_keyVault_properties_typeProperties_baseUrl": {
+			"value": "https://keyvault-vamsi.vault.azure.net/"
 		},
 		"RestService1_properties_typeProperties_url": {
 			"value": "https://dummy.restapiexample.com/api/v1/employees"

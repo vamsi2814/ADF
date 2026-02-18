@@ -31,6 +31,18 @@
 			"type": "string",
 			"defaultValue": "vadlamudi"
 		},
+		"LS_SQL_KV_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "vamsisqlserver1.database.windows.net"
+		},
+		"LS_SQL_KV_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "VamsiDB"
+		},
+		"LS_SQL_KV_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "vadlamudi"
+		},
 		"LS_TestDB_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "vamsisqlserver1.database.windows.net"
@@ -42,6 +54,10 @@
 		"LS_TestDB_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "vadlamudi"
+		},
+		"LS_keyVault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://keyvault-vamsi.vault.azure.net/"
 		},
 		"RestService1_properties_typeProperties_url": {
 			"type": "string",
@@ -105,6 +121,9 @@
 					"LS_TestDB_properties_typeProperties_userName": {
 						"value": "[parameters('LS_TestDB_properties_typeProperties_userName')]"
 					},
+					"LS_keyVault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('LS_keyVault_properties_typeProperties_baseUrl')]"
+					},
 					"RestService1_properties_typeProperties_url": {
 						"value": "[parameters('RestService1_properties_typeProperties_url')]"
 					}
@@ -125,6 +144,15 @@
 				"parameters": {
 					"factoryName": {
 						"value": "[parameters('factoryName')]"
+					},
+					"LS_SQL_KV_properties_typeProperties_server": {
+						"value": "[parameters('LS_SQL_KV_properties_typeProperties_server')]"
+					},
+					"LS_SQL_KV_properties_typeProperties_database": {
+						"value": "[parameters('LS_SQL_KV_properties_typeProperties_database')]"
+					},
+					"LS_SQL_KV_properties_typeProperties_userName": {
+						"value": "[parameters('LS_SQL_KV_properties_typeProperties_userName')]"
 					}
 				}
 			},
