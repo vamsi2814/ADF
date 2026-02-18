@@ -1,0 +1,10 @@
+{
+	"name": "LS_keyVault",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://keyvault-vamsi.vault.azure.net/"
+		}
+	}
+}
