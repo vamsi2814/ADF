@@ -1,0 +1,24 @@
+{
+	"name": "LS_SQL_KV",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "vamsisqlserver1.database.windows.net",
+			"database": "VamsiDB",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "vadlamudi",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "LS_keyVault",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "sql-password",
+				"secretVersion": "a039226078734cacabc737a6277cfe68"
+			}
+		}
+	}
+}
