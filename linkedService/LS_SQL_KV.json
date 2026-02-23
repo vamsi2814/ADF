@@ -1,5 +1,6 @@
 {
 	"name": "LS_SQL_KV",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
 	"properties": {
 		"annotations": [],
 		"type": "AzureSqlDatabase",
