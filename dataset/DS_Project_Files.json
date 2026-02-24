@@ -1,0 +1,34 @@
+{
+	"name": "DS_Project_Files",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Blob",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Folder_Name": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": {
+					"value": "@concat(dataset().Folder_Name,formatDateTime(utcNow(),'yyyy_MM_dd'),'.csv')",
+					"type": "Expression"
+				},
+				"folderPath": {
+					"value": "@concat('root/Project/Daily_Backup/',dataset().Folder_Name)",
+					"type": "Expression"
+				}
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	}
+}
