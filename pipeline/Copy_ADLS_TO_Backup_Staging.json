@@ -117,7 +117,7 @@
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
 										"recursive": true,
-										"wildcardFolderPath": "root/Projec/Source",
+										"wildcardFolderPath": "root/Project/Source",
 										"wildcardFileName": {
 											"value": "@item().name",
 											"type": "Expression"
@@ -264,7 +264,7 @@
 					"method": "POST",
 					"url": "https://prod-03.northcentralus.logic.azure.com:443/workflows/d88ba2d6de904c169586a24e31c41499/triggers/When_an_HTTP_request_is_received/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2FWhen_an_HTTP_request_is_received%2Frun&sv=1.0&sig=HUwxG3Rj0stxutKQsVLODtE9W8RH68pu8Xy0eTPet6w",
 					"body": {
-						"value": "{\n    \"PipelineName\": \"@{pipeline().Pipeline}\",\n    \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n    \"ErrorMessage\": \"File is Missing\"\n}",
+						"value": "{\n    \"PipelineName\": \"@{pipeline().Pipeline}\",\n    \"DataFactoryName\": \"@{pipeline().DataFactory}\",\n    \"ErrorMessage\": \"Pipeline Failed\"\n}",
 						"type": "Expression"
 					}
 				}
