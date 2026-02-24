@@ -9,7 +9,14 @@
 						"referenceName": "stg_customers",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "stgcustomers"
+				},
+				{
+					"dataset": {
+						"referenceName": "stg_products",
+						"type": "DatasetReference"
+					},
+					"name": "source2"
 				}
 			],
 			"sinks": [
@@ -27,6 +34,9 @@
 				},
 				{
 					"name": "select1"
+				},
+				{
+					"name": "exists1"
 				}
 			],
 			"scriptLines": [
@@ -41,8 +51,19 @@
 				"     validateSchema: false,",
 				"     limit: 100,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> source1",
-				"source1 derive(Age = year(currentDate()) - year(DOB)) ~> derivedColumn1",
+				"     format: 'table') ~> stgcustomers",
+				"source(output(",
+				"          ProductID as string,",
+				"          ProductName as string,",
+				"          Category as string,",
+				"          BasePrice as double",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     limit: 100,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> source2",
+				"stgcustomers derive(Age = year(currentDate()) - year(DOB)) ~> derivedColumn1",
 				"derivedColumn1 select(mapColumn(",
 				"          CustomerID,",
 				"          Name,",
@@ -52,7 +73,10 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 sink(allowSchemaDrift: true,",
+				"select1, stgcustomers exists(select1@CustomerID == stgcustomers@CustomerID,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> exists1",
+				"exists1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          CustomerID as string,",
