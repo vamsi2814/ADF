@@ -22,7 +22,8 @@
 				"folderPath": {
 					"value": "@concat('root/Project/Daily_Backup/',dataset().Folder_Name)",
 					"type": "Expression"
-				}
+				},
+				"container": "mycontainer"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
