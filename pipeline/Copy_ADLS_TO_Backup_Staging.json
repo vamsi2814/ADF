@@ -1,5 +1,5 @@
 {
-	"name": "project_Copy_Backup_Staging",
+	"name": "Copy_ADLS_TO_Backup_Staging",
 	"properties": {
 		"activities": [
 			{
